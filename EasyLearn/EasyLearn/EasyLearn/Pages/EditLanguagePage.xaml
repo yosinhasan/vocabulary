@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EasyLearn.Pages.EditLanguagePage">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem x:Name="deleteButton" Icon="delete.png" Name="delete" Activated="DeleteActivated"></ToolbarItem>
+    <ToolbarItem Icon="save.png" Name="save" Activated="SaveActivated"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding ="20" BackgroundColor="#fff" Spacing="6" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Gray"  IsVisible="false" IsRunning="false" x:Name="syncIndicator" />
+      <Label x:Name="formText" FontSize="16" FontAttributes="Bold" TextColor="#000"  Text="" HorizontalOptions="Center" ></Label>
+      <Entry x:Name="formLang"  BackgroundColor="#fff" HeightRequest="40" VerticalOptions="Center" TextColor="#000" Placeholder="language" HorizontalOptions="FillAndExpand"></Entry>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

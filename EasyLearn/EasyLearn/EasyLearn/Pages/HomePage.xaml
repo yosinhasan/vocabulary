@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EasyLearn.Pages.HomePage"
+             Title="Vocabulary">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem x:Name="addButton" Icon="add.png" Name="add"  Activated="AddActivated" ></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding ="20" BackgroundColor="#fff" Spacing="6" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Gray"  IsVisible="false" IsRunning="false" x:Name="syncIndicator" />
+      <SearchBar x:Name="searchText" Placeholder="what do you want to find ?" SearchButtonPressed="SearchButtonClicked"></SearchBar>
+      
+      <ListView x:Name="listView" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  BackgroundColor="#fff" SeparatorVisibility="None" ItemTapped="ItemTapped">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="7">
+                  <Label Text="{Binding Keyword}" TextColor="#000" FontSize="16" FontAttributes="Bold"  VerticalOptions="Center" />
+                </StackLayout>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

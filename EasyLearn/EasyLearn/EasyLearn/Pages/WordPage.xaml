@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EasyLearn.Pages.WordPage"
+             Title="Add new word"
+             >
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="save.png" Name="save" Activated="SaveActivated"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding ="20" BackgroundColor="#fff" Spacing="6" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Gray"  IsVisible="false" IsRunning="false" x:Name="syncIndicator" />
+      <Entry x:Name="formLang"  BackgroundColor="#fff" HeightRequest="40" VerticalOptions="Center" TextColor="#000" Placeholder="new word" HorizontalOptions="FillAndExpand"></Entry>
+      <Label Text="Choose word's language" TextColor="#000" FontSize="16" FontAttributes="Bold"  VerticalOptions="Center" />
+      <ListView x:Name="languageView" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  BackgroundColor="#fff" SeparatorVisibility="None">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="7">
+                  <Label Text="{Binding Name}" TextColor="#000" FontSize="16" FontAttributes="Bold"  VerticalOptions="Center" />
+                </StackLayout>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <Entry x:Name="formTransWord"  BackgroundColor="#fff" HeightRequest="40" VerticalOptions="Center" TextColor="#000" Placeholder="translation" HorizontalOptions="FillAndExpand"></Entry>
+      <Entry x:Name="formTranscript"  BackgroundColor="#fff" HeightRequest="40" VerticalOptions="Center" TextColor="#000" Placeholder="transcript" HorizontalOptions="FillAndExpand"></Entry>
+      <Label Text="Choose translation language" TextColor="#000" FontSize="16" FontAttributes="Bold"  VerticalOptions="Center" />
+      <ListView x:Name="languageTranslationView" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  BackgroundColor="#fff" SeparatorVisibility="None">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="7">
+                  <Label Text="{Binding Name}" TextColor="#000" FontSize="16" FontAttributes="Bold"  VerticalOptions="Center" />
+                </StackLayout>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
