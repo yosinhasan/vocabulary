@@ -1,7 +1,10 @@
 ﻿{
   "dependencies": {
+    "FormsToolkit": "1.1.18",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Newtonsoft.Json": "9.0.1",
     "sqlite-net-pcl": "1.2.1",
+    "Xam.Plugin.FilePicker": "1.1.0",
     "Xamarin.Forms": "2.2.0.45"
   },
   "frameworks": {

@@ -1,4 +1,6 @@
-﻿using EasyLearn.Models;
+﻿using EasyLearn.Helpers;
+using EasyLearn.Models;
+using FormsToolkit;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -30,11 +32,34 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return default(T);
         }
+        public async Task<bool> createMultiple(List<T> items)
+        {
+            try
+            {
+                await connection.InsertAllAsync(items);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
 
+            }
+            return false;
+        }
         public async Task<bool> delete(T item)
         {
             try
@@ -44,7 +69,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return false;
         }
@@ -58,7 +88,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return false;
         }
@@ -72,7 +107,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return false;
         }
@@ -85,7 +125,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return false;
         }
@@ -99,7 +144,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return false;
         }
@@ -113,7 +163,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return -1;
         }

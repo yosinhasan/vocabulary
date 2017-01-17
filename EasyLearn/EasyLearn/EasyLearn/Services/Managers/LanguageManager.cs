@@ -1,4 +1,6 @@
-﻿using EasyLearn.Models;
+﻿using EasyLearn.Helpers;
+using EasyLearn.Models;
+using FormsToolkit;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace EasyLearn.Services.Managers
     public class LanguageManager : GenericManager<Language>
     {
 
-        public LanguageManager(SQLiteAsyncConnection connection) : base (connection)
+        public LanguageManager(SQLiteAsyncConnection connection) : base(connection)
         {
             this.connection.CreateTableAsync<Language>();
         }
@@ -59,7 +61,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return false;
         }

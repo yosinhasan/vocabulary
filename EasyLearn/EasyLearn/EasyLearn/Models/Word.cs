@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,22 @@ namespace EasyLearn.Models
     /// <version>1.0</version>
     public class Word : Entity
     {
-      //  [Unique]
+        //  [Unique]
+        [JsonProperty("word")]
         public string Keyword { get; set; }
+        [JsonIgnore]
         public long LangId { get; set; }
-
+        [JsonIgnore]
+        public long TranslationLangId { get; set; }
+        [JsonProperty("translation")]
+        public string Text { get; set; }
+        [JsonProperty("transcript")]
+        public string Transript { get; set; }
         public override string ToString()
         {
-            return "[Translation: " + Keyword + "]";
+            return "[Word: " + Keyword + " Translation: " + Text +"]";
         }
+
+
     }
 }

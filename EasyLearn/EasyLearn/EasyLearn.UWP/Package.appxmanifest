@@ -1,27 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="a636f798-2886-488d-a49c-c238975ccbdd" Publisher="CN=yhasan" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="b92119dc-2f64-4523-a05e-7f34eb993ae8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <Identity
+    Name="66fa21dd-5344-4c88-830f-3c86871d9544"
+    Publisher="CN=yhasan"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="66fa21dd-5344-4c88-830f-3c86871d9544" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
   <Properties>
     <DisplayName>EasyLearn.UWP</DisplayName>
     <PublisherDisplayName>yhasan</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
+
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
+
   <Resources>
-    <Resource Language="x-generate" />
+    <Resource Language="x-generate"/>
   </Resources>
+
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="EasyLearn.UWP.App">
-      <uap:VisualElements DisplayName="Easy Learn" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="EasyLearn.UWP.App" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
-        </uap:DefaultTile>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="EasyLearn.UWP.App">
+      <uap:VisualElements
+        DisplayName="EasyLearn.UWP"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="EasyLearn.UWP"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
+
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>

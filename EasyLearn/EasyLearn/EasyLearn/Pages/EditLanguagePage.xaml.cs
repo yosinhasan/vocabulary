@@ -58,7 +58,7 @@ namespace EasyLearn.Pages
                         string newValue = c.ToString() + str.Substring(1);
                         if (item == null)
                         {
-                            await LocalService.SqliteService.LanguageManager.create(new Language
+                            await ServiceManager.SqliteService.LanguageManager.create(new Language
                             {
                                 Name = newValue
                             });
@@ -66,7 +66,7 @@ namespace EasyLearn.Pages
                         else if (!item.Name.Equals(newValue))
                         {
                             item.Name = newValue;
-                            await LocalService.SqliteService.LanguageManager.update(item);
+                            await ServiceManager.SqliteService.LanguageManager.update(item);
                         }
                         await Navigation.PopAsync();
                     })
@@ -75,19 +75,34 @@ namespace EasyLearn.Pages
         }
         public void DeleteActivated(object sender, EventArgs e)
         {
-            MessagingService.Current.SendMessage<MessagingServiceQuestion>(MessageKeys.DisplayQuestion, new MessagingServiceQuestion()
+            if (item.Current == 1 || item.CurrentTranslation == 1)
             {
-                Title = Messages.DELETE_ACTION,
-                Question = null,
-                Positive = Constants.YES,
-                Negative = Constants.NO,
-                OnCompleted = new Action<bool>(async result =>
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
                 {
+                    Title = Titles.ERROR,
+                    Message = Messages.LANGUAGE_IS_USED,
+                    Cancel = Titles.CANCEL
+                });
+            }
+            else
+            {
 
-                    await LocalService.SqliteService.LanguageManager.delete(item);
-                    await Navigation.PopAsync();
-                })
-            });
+                MessagingService.Current.SendMessage<MessagingServiceQuestion>(MessageKeys.DisplayQuestion, new MessagingServiceQuestion()
+                {
+                    Title = Messages.DELETE_ACTION,
+                    Question = null,
+                    Positive = Constants.YES,
+                    Negative = Constants.NO,
+                    OnCompleted = new Action<bool>(async result =>
+                    {
+                        if (!result) return;
+                        await ServiceManager.SqliteService.WordManager.deleteByLangId(item);
+                        await ServiceManager.SqliteService.LanguageManager.delete(item);
+                        await Navigation.PopAsync();
+                    })
+                });
+            }
+
         }
     }
 }

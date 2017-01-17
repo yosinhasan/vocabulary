@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Collections;
+using FormsToolkit;
+using EasyLearn.Helpers;
 
 namespace EasyLearn.Services.Managers
 {
@@ -32,35 +34,63 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return null;
         }
-
-        public async Task<Word> readByKeywordAndLangId(string keyword, long langId)
+        public async Task<bool> isExists(string keyword, long langId, long translationLangId)
         {
             try
             {
-                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE Keyword = ? AND LangId = ? LIMIT 1", keyword, langId);
+                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE Keyword = ? AND LangId = ? AND TranslationLangId = ? ", keyword, langId, translationLangId);
                 if (items.Count > 0)
                 {
-                    Word item = items[0];
-                    return item;
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
-            return null;
+            return false;
         }
-
+        public async Task<bool> isExists(Word word)
+        {
+            try
+            {
+                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE Keyword = ? AND LangId = ? AND TranslationLangId = ? ", word.Keyword, word.LangId, word.TranslationLangId);
+                if (items.Count > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
+            }
+            return false;
+        }
         public async Task<IEnumerable> searchByKeywordAndLangId(string keyword, long langId, long translationLangId)
         {
             try
             {
                 keyword = "%" + keyword + "%";
-                List<Word> items = await connection.QueryAsync<Word>("SELECT Word.* FROM Word INNER JOIN Translation ON Word.Id = Translation.WordId WHERE Word.LangId = ? AND Translation.LangId = ? AND Word.Keyword LIKE ? ", langId, translationLangId, keyword);
+                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE LangId = ? AND TranslationLangId = ? AND (Keyword LIKE ? OR Text LIKE ?) ", langId, translationLangId, keyword, keyword);
                 if (items.Count > 0)
                 {
                     return new ObservableCollection<Word>(items);
@@ -68,7 +98,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return null;
         }
@@ -78,7 +113,7 @@ namespace EasyLearn.Services.Managers
             try
             {
                 keyword = "%" + keyword + "%";
-                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE Keyword LIKE ? AND LangId = ? LIMIT 1", keyword, langId);
+                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE Keyword LIKE ? AND LangId = ? ", keyword, langId);
                 if (items.Count > 0)
                 {
                     return new ObservableCollection<Word>(items);
@@ -86,7 +121,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return null;
         }
@@ -102,7 +142,12 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return null;
         }
@@ -110,7 +155,7 @@ namespace EasyLearn.Services.Managers
         {
             try
             {
-                List<Word> items = await connection.QueryAsync<Word>("SELECT Word.* FROM Word INNER JOIN Translation ON Word.Id = Translation.WordId WHERE Word.LangId = ? AND Translation.LangId = ? ", langId, translationLangId);
+                List<Word> items = await connection.QueryAsync<Word>("SELECT * FROM Word WHERE LangId = ? AND TranslationLangId = ? ", langId, translationLangId);
                 if (items.Count > 0)
                 {
                     return new ObservableCollection<Word>(items);
@@ -118,9 +163,34 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
 
             }
             return null;
+        }
+
+        public async Task<bool> deleteByLangId(Language item)
+        {
+            try
+            {
+                int i = await connection.ExecuteAsync("DELETE FROM Word WHERE LangId = ? OR TranslationLangId = ? ", item.Id, item.Id);
+                return i > 0;
+            }
+            catch (Exception ex)
+            {
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
+            }
+            return false;
         }
 
         public async Task<ObservableCollection<Word>> readAll()
@@ -135,30 +205,15 @@ namespace EasyLearn.Services.Managers
             }
             catch (Exception ex)
             {
-
+                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
+                {
+                    Title = Titles.ERROR,
+                    Message = ex.Message,
+                    Cancel = Titles.CANCEL
+                });
             }
             return null;
         }
-        public async Task<bool> safeDelete(long id)
-        {
-            try
-            {
-                var c = await connection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Translation  WHERE WordId = ? ", id);
-                if (c > 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    int i = await connection.ExecuteAsync("DELETE FROM Word WHERE Id = ?", id);
-                    return i > 0;
-                }
-            }
-            catch (Exception ex)
-            {
 
-            }
-            return false;
-        }
     }
 }

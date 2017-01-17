@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EasyLearn.Pages.ExportPage"
+             Title="Export">
+  <ContentPage.Content>
+    <StackLayout Padding ="20" BackgroundColor="#fff" Spacing="6" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <Entry x:Name="fileNameEntry" HorizontalOptions="FillAndExpand" Placeholder="Input file name" TextColor="#000"/>
+      <!--<Button Text="Choose directory..." Clicked="ChooseClicked" HorizontalOptions="FillAndExpand"></Button>-->
+      <Button BorderColor="#000" BorderWidth="2" BorderRadius="0" BackgroundColor="#fff" TextColor="#000" Text="Export data" Clicked="ExportClicked" HorizontalOptions="FillAndExpand"></Button>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

@@ -13,9 +13,8 @@ namespace EasyLearn.Helpers
     {
         public static readonly string SAVE = "Save your action";
         public static readonly string CANCEL = "Cancel";
-
         public static readonly string CONFIRM = "Confirm your action";
-
         public static readonly string ERROR = "Error";
+        internal static readonly string SUCCESS = "Success";
     }
 }

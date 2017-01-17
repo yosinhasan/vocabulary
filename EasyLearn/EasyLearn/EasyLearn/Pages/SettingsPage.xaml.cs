@@ -17,67 +17,44 @@ namespace EasyLearn.Pages
         public SettingsPage()
         {
             InitializeComponent();
-        }
+            var menu = new List<Category>();
+            menu.Add(new Category
+            {
+                Label = "Choose mode",
+                Image = "switch2.png",
+                TargetType = typeof(ChooseModePage)
+            });
+            menu.Add(new Category
+            {
+                Label = "Languages",
+                Image = "lang.png",
+                TargetType = typeof(LanguagePage)
+            });
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            var items = await LocalService.SqliteService.LanguageManager.readAll();
-            languageView.ItemsSource = items;
-            languageTranslationView.ItemsSource = items;
-            if (LocalService.SqliteService.Current != null && LocalService.SqliteService.CurrentTranslation != null)
+            menu.Add(new Category
             {
-                languageCurrent.Text = Constants.CURRENT + ": " + LocalService.SqliteService.Current.Name + " - " + LocalService.SqliteService.CurrentTranslation.Name;
-            }
+                Label = "Export data",
+                Image = "export.png",
+                TargetType = typeof(ExportPage)
+            });
+            menu.Add(new Category
+            {
+                Label = "Import data",
+                Image = "import2.png",
+                TargetType = typeof(ImportPage)
+            });
+            listView.ItemsSource = menu;
+            listView.ItemSelected += OnItemSelected;
         }
-        public void SaveActivated(object sender, EventArgs e)
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            Language wordLanguage = (Language)languageView.SelectedItem;
-            Language wordTranslation = (Language)languageTranslationView.SelectedItem;
-            if (wordLanguage == null || wordTranslation == null)
+            //view.BackgroundColor = Color.FromHex("#ffcc33");
+            var item = e.SelectedItem as Category;
+            if (item != null)
             {
-                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
-                {
-                    Title = Titles.ERROR,
-                    Message = Messages.LANGUAGE_ITEM_NOT_SELECTED,
-                    Cancel = Titles.CANCEL
-                });
+                await Navigation.PushAsync((Page)Activator.CreateInstance(item.TargetType));
+                listView.SelectedItem = null;
             }
-            else if (wordLanguage.Id == wordTranslation.Id)
-            {
-                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
-                {
-                    Title = Titles.ERROR,
-                    Message = Messages.LANGUAGES_MUST_NOT_MATCH,
-                    Cancel = Titles.CANCEL
-                }); 
-            }
-            else
-            {
-                MessagingService.Current.SendMessage<MessagingServiceQuestion>(MessageKeys.DisplayQuestion, new MessagingServiceQuestion()
-                {
-                    Title = Messages.SAVE_DATA,
-                    Question = null,
-                    Positive = Constants.YES,
-                    Negative = Constants.NO,
-                    OnCompleted = new Action<bool>(async result =>
-                    {
-                        wordLanguage.Current = 1;
-                        wordTranslation.CurrentTranslation = 1;
-                        await LocalService.SqliteService.LanguageManager.resetFlags();
-                        await LocalService.SqliteService.LanguageManager.update(wordLanguage);
-                        await LocalService.SqliteService.LanguageManager.update(wordTranslation);
-                        LocalService.SqliteService.Current = wordLanguage;
-                        LocalService.SqliteService.CurrentTranslation = wordTranslation;
-                        MainPage.Main.Detail = new NavigationPage(new HomePage());
-                    })
-                });
-             
-            }
-        }
-        public void AddActivated(object sender, EventArgs arg)
-        {
-            Navigation.PushAsync(new EditLanguagePage() { Title = Constants.ADD_LANGUAGE });
         }
     }
 }

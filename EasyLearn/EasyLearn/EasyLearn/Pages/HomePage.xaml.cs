@@ -1,6 +1,7 @@
 ﻿using EasyLearn.Models;
 using EasyLearn.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace EasyLearn.Pages
 {
     public partial class HomePage : ContentPage
     {
+        IEnumerable items;
         public HomePage()
         {
             InitializeComponent();
@@ -20,13 +22,16 @@ namespace EasyLearn.Pages
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            if (LocalService.SqliteService.Current == null || LocalService.SqliteService.CurrentTranslation == null)
+            if (ServiceManager.SqliteService.Current == null || ServiceManager.SqliteService.CurrentTranslation == null)
             {
                 MainPage.Main.Detail = new NavigationPage(new SettingsPage());
-            } else
+            }
+            else
             {
-                listView.ItemsSource = await LocalService.SqliteService.WordManager.readAllByCurrentLanguage(LocalService.SqliteService.Current.Id, LocalService.SqliteService.CurrentTranslation.Id);
-                Title = LocalService.SqliteService.Current.Name.Substring(0, 2).ToUpper() + " - " + LocalService.SqliteService.CurrentTranslation.Name.Substring(0, 2).ToUpper();
+                items = await ServiceManager.SqliteService.WordManager.readAllByCurrentLanguage(ServiceManager.SqliteService.Current.Id, ServiceManager.SqliteService.CurrentTranslation.Id);
+                listView.ItemsSource = items;
+                Title = ServiceManager.SqliteService.Current.Name.Substring(0, 2).ToUpper() + " - " + ServiceManager.SqliteService.CurrentTranslation.Name.Substring(0, 2).ToUpper();
+
             }
         }
         private async void SearchButtonClicked(object sender, EventArgs e)
@@ -35,7 +40,18 @@ namespace EasyLearn.Pages
             if (search != null && search.Trim() != "")
             {
                 search = search.Trim().ToLower();
-                listView.ItemsSource = await LocalService.SqliteService.WordManager.searchByKeywordAndLangId(search, LocalService.SqliteService.Current.Id,  LocalService.SqliteService.CurrentTranslation.Id);
+                listView.ItemsSource = await ServiceManager.SqliteService.WordManager.searchByKeywordAndLangId(search, ServiceManager.SqliteService.Current.Id, ServiceManager.SqliteService.CurrentTranslation.Id);
+            }
+        }
+        private async void TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(e.NewTextValue))
+            {
+                listView.ItemsSource = await ServiceManager.SqliteService.WordManager.searchByKeywordAndLangId(e.NewTextValue, ServiceManager.SqliteService.Current.Id, ServiceManager.SqliteService.CurrentTranslation.Id);
+            }
+            else
+            {
+                listView.ItemsSource = items;
             }
         }
 

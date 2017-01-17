@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{318E60D2-ECE4-4EC5-A17B-5B92B0576A60}</ProjectGuid>
+    <ProjectGuid>{894F22E4-79DD-462B-8867-FD3369E8D475}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EasyLearn.UWP</RootNamespace>
@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileWorker.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -109,6 +110,14 @@
     <None Include="Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="add.png" />
+    <Content Include="delete.png" />
+    <Content Include="edit.png" />
+    <Content Include="export.png" />
+    <Content Include="file.png" />
+    <Content Include="import2.png" />
+    <Content Include="lang.png" />
+    <Content Include="library.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -117,6 +126,10 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="right.png" />
+    <Content Include="save.png" />
+    <Content Include="settings.png" />
+    <Content Include="switch2.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -130,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyLearn\EasyLearn.csproj">
-      <Project>{946be173-4e89-458c-a13c-8305f7426341}</Project>
+      <Project>{c7d2ff80-de90-4dac-a1c7-ba0bb6a65fdf}</Project>
       <Name>EasyLearn</Name>
     </ProjectReference>
   </ItemGroup>

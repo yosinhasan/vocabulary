@@ -18,22 +18,23 @@ namespace EasyLearn.Pages
         {
             InitializeComponent();
         }
-
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            var items = await LocalService.SqliteService.LanguageManager.readAll();
-            languageView.ItemsSource = items;
-            languageTranslationView.ItemsSource = items;
+            if (ServiceManager.SqliteService.Current == null || ServiceManager.SqliteService.CurrentTranslation == null)
+            {
+                MainPage.Main.Detail = new NavigationPage(new SettingsPage());
+            }
+            else
+            {
+                Title = ServiceManager.SqliteService.Current.Name.Substring(0, 2).ToUpper() + " - " + ServiceManager.SqliteService.CurrentTranslation.Name.Substring(0, 2).ToUpper();
+            }
         }
-
         public void SaveActivated(object sender, EventArgs e)
         {
             string word = formLang.Text;
             string translation = formTransWord.Text;
             string transcript = formTranscript.Text;
-            Language wordLanguage = (Language)languageView.SelectedItem;
-            Language wordTranslation = (Language)languageTranslationView.SelectedItem;
             if (word == null || word.Trim() == "" || translation == null || translation.Trim() == "")
             {
                 MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
@@ -43,21 +44,12 @@ namespace EasyLearn.Pages
                     Cancel = Titles.CANCEL
                 });
             }
-            else if (wordLanguage == null || wordTranslation == null)
+            else if (ServiceManager.SqliteService.Current == null || ServiceManager.SqliteService.CurrentTranslation == null)
             {
                 MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
                 {
                     Title = Titles.ERROR,
                     Message = Messages.LANGUAGE_ITEM_NOT_SELECTED,
-                    Cancel = Titles.CANCEL
-                });
-            }
-            else if (wordLanguage.Id == wordTranslation.Id)
-            {
-                MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
-                {
-                    Title = Titles.ERROR,
-                    Message = Messages.LANGUAGES_MUST_NOT_MATCH,
                     Cancel = Titles.CANCEL
                 });
             }
@@ -73,43 +65,33 @@ namespace EasyLearn.Pages
                     {
                         if (!result) return;
                         string keyword = word.Trim().ToLower();
-                        long langId = wordLanguage.Id;
-                        Word oldWord = await LocalService.SqliteService.WordManager.readByKeywordAndLangId(keyword, langId);
-                        if (oldWord == null)
+                        long langId = ServiceManager.SqliteService.Current.Id;
+                        long tranLangId = ServiceManager.SqliteService.CurrentTranslation.Id;
+                        bool isExists = await ServiceManager.SqliteService.WordManager.isExists(keyword, langId, tranLangId);
+                        if (!isExists)
                         {
-                            Word newWord = await LocalService.SqliteService.WordManager.create(new Word
+                            Word newWord = await ServiceManager.SqliteService.WordManager.create(new Word
                             {
                                 Keyword = keyword,
-                                LangId = langId
+                                LangId = langId,
+                                TranslationLangId = tranLangId,
+                                Text = translation.Trim().ToLower(),
+                                Transript = (transcript != null) ? transcript.Trim().ToLower() : ""
                             });
-                            oldWord = newWord;
                         }
-                        if (oldWord != null)
+                        else
                         {
-                            translation = translation.Trim().ToLower();
-                            transcript = (transcript != null) ? transcript.Trim().ToLower() : "-";
-                            Translation item = await LocalService.SqliteService.VocabularyManager.readByWordIdAndLangId(oldWord.Id, wordTranslation.Id);
-                            if (item != null)
+                            MessagingService.Current.SendMessage<MessagingServiceAlert>(MessageKeys.DisplayAlert, new MessagingServiceAlert()
                             {
-                                item.Text = translation;
-                                item.Transript = transcript;
-                                await LocalService.SqliteService.VocabularyManager.update(item);
-                            }
-                            else
-                            {
-                                await LocalService.SqliteService.VocabularyManager.create(new Translation
-                                {
-                                    LangId = wordTranslation.Id,
-                                    Text = translation,
-                                    Transript = transcript,
-                                    WordId = oldWord.Id
-                                });
-                            }
+                                Title = Titles.ERROR,
+                                Message = Messages.WORD_EXISTS,
+                                Cancel = Titles.CANCEL
+                            });
                         }
+
                         await Navigation.PopAsync();
                     })
                 });
-
             }
         }
     }

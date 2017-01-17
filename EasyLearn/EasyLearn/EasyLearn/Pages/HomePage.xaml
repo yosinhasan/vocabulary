@@ -9,8 +9,7 @@
   <ContentPage.Content>
     <StackLayout Padding ="20" BackgroundColor="#fff" Spacing="6" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
       <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Gray"  IsVisible="false" IsRunning="false" x:Name="syncIndicator" />
-      <SearchBar x:Name="searchText" Placeholder="what do you want to find ?" SearchButtonPressed="SearchButtonClicked"></SearchBar>
-      
+      <SearchBar x:Name="searchText" Placeholder="what do you want to find ?" SearchButtonPressed="SearchButtonClicked" TextChanged="TextChanged"></SearchBar>
       <ListView x:Name="listView" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  BackgroundColor="#fff" SeparatorVisibility="None" ItemTapped="ItemTapped">
         <ListView.ItemTemplate>
           <DataTemplate>

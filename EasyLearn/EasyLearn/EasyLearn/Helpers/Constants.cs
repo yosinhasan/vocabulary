@@ -19,5 +19,9 @@ namespace EasyLearn.Helpers
         public static readonly string ADD = "Add";
         public static readonly string CURRENT = "Current";
         public static readonly string ADD_LANGUAGE = "Add language";
+        public static readonly int ACTIVE = 1;
+        public static readonly int INACTIVE = 0;
+        public static readonly string FOLDER = "EasyLearn";
+
     }
 }

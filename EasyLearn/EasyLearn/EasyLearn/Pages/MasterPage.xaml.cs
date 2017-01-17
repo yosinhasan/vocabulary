@@ -26,13 +26,6 @@ namespace EasyLearn.Pages
             });
             menu.Add(new Category
             {
-                Label = "Languages",
-                Image = "lang.png",
-                TargetType = typeof(LanguagePage)
-            });
-
-            menu.Add(new Category
-            {
                 Label = "Settings",
                 Image = "settings.png",
                 TargetType = typeof(SettingsPage)

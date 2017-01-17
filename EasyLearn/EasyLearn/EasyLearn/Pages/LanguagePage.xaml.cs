@@ -19,14 +19,14 @@ namespace EasyLearn.Pages
         }
         private void ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Navigation.PushAsync(new EditLanguagePage((Language)e.Item) { Title = Constants.EDIT});
+            Navigation.PushAsync(new EditLanguagePage((Language)e.Item) { Title = Constants.EDIT });
             ((ListView)sender).SelectedItem = null;
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            listView.ItemsSource = await LocalService.SqliteService.LanguageManager.readAll();
+            listView.ItemsSource = await ServiceManager.SqliteService.LanguageManager.readAll();
 
         }
 
