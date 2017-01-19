@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Renault.Pages.MasterPage"
+             Icon="list.png"
+             Title="Menu">
+  <ContentPage.Content>
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#000" Padding="0,40,0,0">
+      <ListView x:Name="listView" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  BackgroundColor="#000" SeparatorVisibility="None" RowHeight="100">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="7">
+                  <Image Source="{Binding image}" HeightRequest="50" WidthRequest="50" VerticalOptions="Center" />
+                  <Label Text="{Binding label}" TextColor="#ffffff" FontSize="16" FontAttributes="Bold"  VerticalOptions="Center" />
+                  <Image Source="arrows.png" HeightRequest="35" VerticalOptions="Center"  HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

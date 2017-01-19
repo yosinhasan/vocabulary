@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Renault.Pages.AutoPage"
+             Title="Auto zoeken">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="toolbar_auto.png"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding ="20" BackgroundColor="#fff" Spacing="6" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Gray"  IsVisible="false" IsRunning="false" x:Name="syncIndicator" />
+      <Label FontSize="16" FontAttributes="Bold" TextColor="#000"  Text="Voor uw kenteken in" HorizontalOptions="Center" ></Label>
+      <Entry x:Name="code"  BackgroundColor="#fff" HeightRequest="40" VerticalOptions="Center" TextColor="#000" Placeholder="kenteken" HorizontalOptions="FillAndExpand"></Entry>
+      <Button TextColor="#000" BorderRadius="0"  HeightRequest="40" BorderColor="#fff" x:Name="butLogin" Clicked="AutoSearchButtonClicked" BackgroundColor="#ffcc33" Text="Zoeken >" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Button>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Renault.Pages.InfoPage"
+             Title="De 7 zekerheden">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="toolbar_info.png"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding ="20"  Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+      <Label Text="1   Tot 24 maanden garantie" TextColor="#000" FontSize="16" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      <Label Text="2   Servicebeurt voor aflevering" TextColor="#000" FontSize="16" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      <Label Text="3   APK-keuring" FontSize="16" TextColor="#000" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      <Label Text="4   Gegarandeerde kilometerstand" FontSize="16" TextColor="#000" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      <Label Text="5   Vervangend vervoer bij een reparatie van langer dan 24 uur" TextColor="#000" FontSize="16" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      <Label Text="6   Veertien dagen omruilgarantie" FontSize="16" TextColor="#000" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      <Label Text="7   Renault Route Service Nederland 0800 0303" TextColor="#000" FontSize="16" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

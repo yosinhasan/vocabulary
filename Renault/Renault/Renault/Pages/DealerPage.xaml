@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Renault.Pages.DealerPage"
+             Title="Uw dealer">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="toolbar_dealer.png"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding ="20"  Orientation="Vertical" Spacing="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+      <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Gray"  IsVisible="false" IsRunning="false" x:Name="syncIndicator" />
+      <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label Text="Dealernaam" TextColor="#000" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+        <Label x:Name = "dealer" TextColor="#000" Text="{Binding Card.dealerName}" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      </StackLayout>
+
+      <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label Text="Garantie tot" TextColor="#000" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+        <Label x:Name = "tot" TextColor="#000" Text="{Binding Card.endMileage}" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      </StackLayout>
+
+      <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label Text="Adres" TextColor="#000" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+        <Label x:Name = "address" TextColor="#000" Text="{Binding Card.address}" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+        <Label x:Name = "postCode" TextColor="#000" Text="{Binding Card.postCode}" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      </StackLayout>
+
+      <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
+        <Label Text="Telefoonnummer" TextColor="#000" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+        <Label x:Name = "phone" TextColor="#000" Text="{Binding Card.phone}" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+      </StackLayout>
+      <Button TextColor="#000" BorderRadius="0"  HeightRequest="40" BorderColor="#fff" x:Name="butLogin" Clicked="ButtonClicked" BackgroundColor="#ffcc33" Text="Bel >" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Button>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

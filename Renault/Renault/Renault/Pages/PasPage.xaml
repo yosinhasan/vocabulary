@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Renault.Pages.PasPage"
+             Title="Pas">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem  Icon="toolbar_pas.png"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Padding="20" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+      <Grid BackgroundColor="#fff" HeightRequest="380" WidthRequest="300"  Rotation="90" VerticalOptions="Center">
+        <StackLayout Grid.Row="0" Grid.Column="0" Spacing="4" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+          <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand">
+            <Label Text="RENAULT" TextColor="#000"  FontSize="12"  VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Label Text="TOP OCCASIONS" TextColor="#000" FontSize="12" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+          </StackLayout>
+          <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand">
+            <Label Text="Dealer" TextColor="#000" FontSize="10" FontAttributes="Bold"  />
+            <Label x:Name = "dealer" TextColor="#000"  FontSize="10" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Label x:Name = "phone"  TextColor="#000" FontSize="10" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+          </StackLayout>
+          <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand">
+            <Label Text="Garantie tot" TextColor="#000" FontSize="10" FontAttributes="Bold"/>
+            <Label x:Name = "tot" TextColor="#000"  FontSize="10" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+          </StackLayout>
+          <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand">
+            <Label Text="Naam" FontSize="10" TextColor="#000" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Label x:Name="name"  FontSize="10" TextColor="#000" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+          </StackLayout>
+          <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand">
+            <Label Text="Kenteken" FontSize="10" TextColor="#000" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Label x:Name="license"  FontSize="10" TextColor="#000" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+          </StackLayout>
+          <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="FillAndExpand">
+            <Label Text="Pasnummer" FontSize="10" TextColor="#000" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Label x:Name="number"  FontSize="10" TextColor="#000" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+          </StackLayout>
+        </StackLayout>
+        <Image Grid.Row="0" Grid.Column="1" Source="card.png" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+      </Grid>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
